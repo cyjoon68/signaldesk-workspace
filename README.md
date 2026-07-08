@@ -24,3 +24,33 @@ git submodule update --init --recursive
 cd signaldesk-fe && npm install && npm run build
 cd ../signaldesk-be && python -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && pytest
 ```
+
+## Screenshot
+
+![SignalDesk dashboard](docs/screenshots/dashboard.png)
+
+## API example
+
+```http
+GET /api/dashboard
+PATCH /api/events/{event_id}/status
+POST /api/auth/refresh
+```
+
+## ERD
+
+```mermaid
+erDiagram
+  users ||--o{ refresh_tokens : owns
+  users ||--o{ security_events : triages
+  security_events ||--o{ event_notes : has
+  users ||--o{ saved_filters : saves
+```
+
+## Verification
+
+- `npm install && npm run build`: passed
+- `npm audit --audit-level=critical`: passed, 0 vulnerabilities
+- `npm run test:e2e`: passed, 1 Playwright smoke test
+- `pip install -r requirements.txt && pytest`: passed, 2 tests
+- Screenshot captured with Playwright
