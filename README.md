@@ -1,56 +1,55 @@
 # SignalDesk Workspace
 
-Public portfolio workspace for a Frontend / Product Engineer application.
+보안 이벤트 운영자가 이벤트 접수, 우선순위 확인, 상태 변경, 레거시 리포트 동기화를 한 흐름에서 처리할 수 있도록 만든 프로젝트입니다.
 
-## Repository topology
+## 저장소 구성
 
-- Organization workspace: `https://github.com/signaldesk-labs/signaldesk-workspace`
-- Personal mirror: `https://github.com/cyjoon68/signaldesk-workspace`
-- App submodule: `https://github.com/signaldesk-labs/signaldesk-fe`
-- API submodule: `https://github.com/signaldesk-labs/signaldesk-be`
-- Default branch: `develop`
-- `main` branch is retained.
+- FE: [`signaldesk-fe`](https://github.com/signaldesk-labs/signaldesk-fe)
+- BE: [`signaldesk-be`](https://github.com/signaldesk-labs/signaldesk-be)
+- 개인 공개 미러: https://github.com/cyjoon68/signaldesk-workspace
+- 기본 브랜치: `develop`
 
-## Implementation scope
+## 핵심 기능
 
-- FE: React, TypeScript, `ky`, TanStack Query, D3, jQuery/Ajax compatibility, Playwright smoke test.
-- BE: Python Flask RESTful API, module, MariaDB, Tortoise ORM, pytest, OpenAPI, k6.
-- demo-backend conversion: auth/user/phone/token ideas converted to REST. GraphQL is not used.
+- 보안 이벤트 목록과 처리 상태 확인
+- 이벤트 상태 변경 워크플로우
+- D3 기반 이벤트 추세 시각화
+- jQuery/Ajax 레거시 리포트 연동 adapter
+- Flask REST API와 MariaDB 기반 이벤트/토큰 데이터 관리
 
-## Local commands
-
-```bash
-git submodule update --init --recursive
-cd signaldesk-fe && npm install && npm run build
-cd ../signaldesk-be && python -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && pytest
-```
-
-## Screenshot
+## 화면
 
 ![SignalDesk dashboard](docs/screenshots/dashboard.png)
 
-## API example
+## 기술 스택
 
-```http
-GET /api/dashboard
-PATCH /api/events/{event_id}/status
-POST /api/auth/refresh
+- Frontend: React, TypeScript, ky, TanStack Query, D3, jQuery
+- Backend: Python, Flask, Tortoise ORM
+- Database: MariaDB
+- Infra/Test: Docker Compose, OpenAPI, pytest, k6, Playwright
+
+## 실행
+
+```bash
+git submodule update --init --recursive
+
+cd signaldesk-fe
+npm install
+npm run dev
+
+cd ../signaldesk-be
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+pytest
 ```
 
-## ERD
+## 데이터 흐름
 
-```mermaid
-erDiagram
-  users ||--o{ refresh_tokens : owns
-  users ||--o{ security_events : triages
-  security_events ||--o{ event_notes : has
-  users ||--o{ saved_filters : saves
+```text
+React Dashboard
+  -> ky client
+  -> Flask REST API
+  -> Tortoise ORM
+  -> MariaDB
 ```
-
-## Verification
-
-- `npm install && npm run build`: passed
-- `npm audit --audit-level=critical`: passed, 0 vulnerabilities
-- `npm run test:e2e`: passed, 1 Playwright smoke test
-- `pip install -r requirements.txt && pytest`: passed, 2 tests
-- Screenshot captured with Playwright
