@@ -1,5 +1,10 @@
 # SignalDesk Workspace
 
+![React](https://img.shields.io/badge/React-18-61dafb?logo=react)
+![Flask](https://img.shields.io/badge/Flask-REST-000000?logo=flask)
+![MariaDB](https://img.shields.io/badge/MariaDB-Tortoise_ORM-003545?logo=mariadb)
+![Branch](https://img.shields.io/badge/branch-develop-2ea44f)
+
 보안 이벤트 운영자가 이벤트 접수, 우선순위 확인, 상태 변경, 레거시 리포트 동기화를 한 흐름에서 처리할 수 있도록 만든 프로젝트입니다.
 
 ## 저장소 구성
