@@ -1,0 +1,8 @@
+[submodule "signaldesk-fe"]
+	path = signaldesk-fe
+	url = https://github.com/signaldesk-labs/signaldesk-fe.git
+	branch = develop
+[submodule "signaldesk-be"]
+	path = signaldesk-be
+	url = https://github.com/signaldesk-labs/signaldesk-be.git
+	branch = develop
